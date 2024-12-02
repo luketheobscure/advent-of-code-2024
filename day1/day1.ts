@@ -30,11 +30,15 @@ function part2(fileName: string): number {
   });
 
   const uniqueNumbers = new Set<number>(list1);
-  const similarityScores = new Map<number, number>();
+  const similarityScores: Record<string, number> = {};
   for (const num of uniqueNumbers) {
-    similarityScores.set(num, list2.filter((val) => val === num).length * num);
+    similarityScores[`${num}`] = list2.filter((val) => val === num).length *
+      num;
   }
-  return list1.reduce((acc, curr) => acc + similarityScores.get(curr)!, 0);
+  return list1.reduce(
+    (acc, curr) => acc + similarityScores[`${curr}`]!,
+    0,
+  );
 }
 
 console.log(part1("inputs/1a.txt"));
