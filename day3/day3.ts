@@ -6,14 +6,15 @@ function followInstructions(matcher: RegExp) {
   let skip = false;
 
   for (const [match] of matches) {
-    if (match === "do()") {
-      skip = false;
-      continue;
+    switch (match) {
+      case "do()":
+        skip = false;
+        continue;
+      case "don't()":
+        skip = true;
+        continue;
     }
-    if (match === "don't()") {
-      skip = true;
-      continue;
-    }
+
     if (skip) continue;
 
     const [a, b] = match.replace("mul(", "").replace(")", "").split(",").map(
