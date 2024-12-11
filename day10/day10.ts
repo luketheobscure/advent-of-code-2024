@@ -17,38 +17,23 @@ function checkPoint(point: Point, currentHeight: number) {
   return false;
 }
 
-let nines = 0;
+let uniquePaths = 0;
 function walk(currentPoint: Point, peaks: Set<string>): Set<string> {
   const [x, y] = currentPoint;
   const curHeight = +input[y][x];
 
-  ["up", "down", "left", "right"].forEach((direction) => {
-    const nextPoint: Point = (() => {
-      switch (direction) {
-        case "up": {
-          return [x, y - 1];
-        }
-        case "down": {
-          return [x, y + 1];
-        }
-        case "left": {
-          return [x - 1, y];
-        }
-        case "right": {
-          return [x + 1, y];
-        }
+  ([[x, y - 1], [x, y + 1], [x - 1, y], [x + 1, y]] as Point[]).forEach(
+    (nextPoint) => {
+      if (!checkPoint(nextPoint!, curHeight)) return;
+
+      if (curHeight === 8) {
+        uniquePaths += 1;
+        peaks.add(nextPoint!.join());
+        return;
       }
-    })() as Point;
-
-    if (!checkPoint(nextPoint!, curHeight)) return;
-
-    if (curHeight === 8) {
-      nines += 1;
-      peaks.add(nextPoint!.join());
-      return;
-    }
-    walk(nextPoint!, peaks);
-  });
+      walk(nextPoint!, peaks);
+    },
+  );
   return peaks;
 }
 
@@ -59,4 +44,4 @@ console.log(
     0,
   ),
 );
-console.log("Part 2:", nines);
+console.log("Part 2:", uniquePaths);
