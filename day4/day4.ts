@@ -62,4 +62,26 @@ rotate90Degrees(input.map((line) => line.split(""))).forEach((line) => {
   matches += (line.join("").match(reverseMatcher) || []).length;
 });
 
-console.log(matches);
+console.log("Part 1:", matches);
+
+function part2() {
+  const input = Deno.readTextFileSync("inputs/4.txt").split("\n");
+
+  const matcher = /MS|SM/g;
+  let matches = 0;
+  input.forEach((line, i) => {
+    line.split("").forEach((char, j) => {
+      if (char !== "A") return;
+
+      if (
+        `${input[i - 1]?.[j - 1]}${input[i + 1]?.[j + 1]}`.match(matcher) &&
+        `${input[i - 1]?.[j + 1]}${input[i + 1]?.[j - 1]}`.match(matcher)
+      ) {
+        matches++;
+      }
+    });
+  });
+  return matches;
+}
+
+console.log("Part 2:", part2());
