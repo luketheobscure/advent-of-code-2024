@@ -36,7 +36,7 @@ function part1(fileName: string): number {
   }).length;
 }
 
-console.log("Part 1:", part1("inputs/02.txt"));
+console.log("Part 1:", part1("inputs/2.txt"));
 
 function removeItemByIndex(arr: number[], index: number) {
   return arr.filter((_, i) => i !== index);

@@ -41,5 +41,5 @@ function part2(fileName: string): number {
   );
 }
 
-console.log(part1("inputs/1a.txt"));
-console.log(part2("inputs/1a.txt"));
+console.log(part1("inputs/1.txt"));
+console.log(part2("inputs/1.txt"));
